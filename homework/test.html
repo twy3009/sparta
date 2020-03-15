@@ -55,6 +55,29 @@
         }
     </style>
 
+    <script>
+        function q1() {
+            // 1. input-q1의 입력값을 가져온다.
+            // 2. 만약 입력값이 빈칸이면 if(입력값=='')
+            // 3. alert('입력하세요!') 띄우기
+            // 4. alert(입력값) 띄우기
+            if ($('#val1').val() == '') {
+                $('#val1').focus()
+                alert("입력하세요")
+            } else if ($('#inputGroupSelect01').val() == '0') {
+                $('#inputGroupSelect01').focus()
+                alert("입력하세요")
+            } else if ($('#val2').val() == '') {
+                $('#val2').focus()
+                alert("입력하세요")
+            } else if ($('#val3').val() == '') {
+                $('#val3').focus()
+                alert("입력하세요")
+            }
+
+        }
+    </script>
+
 </head>
 
 <body>
@@ -97,7 +120,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">이름</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input id='val1' type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
 
         <div class="input-group mb-3">
@@ -105,7 +128,7 @@
                 <label class="input-group-text" for="inputGroupSelect01">수량</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01">
-          <option selected>수량을 선택하세요...</option>
+          <option value="0"selected>수량을 선택하세요...</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -116,17 +139,17 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">주소</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input id='val2' type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input id='val3' type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
-        <a class="btn btn-primary" href="https://pages.coupang.com/p/8049?from=home_C2&traid=home_C2" role="button">Link</a>
-        <button type="button" class="btn btn-secondary">장바구니</button>
+        <button onclick="q1()" type="button" class="btn btn-secondary">바로 주문하기</button>
+        <button onclick="q1()" type="button" class="btn btn-secondary">장바구니</button>
     </div>
 
 </body>
