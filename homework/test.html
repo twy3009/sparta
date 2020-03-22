@@ -73,6 +73,9 @@
             } else if ($('#val3').val() == '') {
                 $('#val3').focus()
                 alert("입력하세요")
+            } else if ($('#val1').val() !== '' || $('#val2').val() !== '' || $('#val3').val() !== '' || $('#inputGroupSelect01').val() !== '0') {
+                $('#val3').focus()
+                alert("입력하세요")
             }
 
         }
@@ -150,6 +153,27 @@
         </div>
         <button onclick="q1()" type="button" class="btn btn-secondary">바로 주문하기</button>
         <button onclick="q1()" type="button" class="btn btn-secondary">장바구니</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">전화번호</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td id="var1"></td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
+
 
 </body>
