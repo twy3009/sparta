@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 # client = MongoClient('mongodb://sampleID:samplePW@12.34.56.78', 27017)
-client = MongoClient('mongodb://설정한아이디:설정한비밀번호@내AWS아이피', 27017)
+client = MongoClient('mongodb:test:test@http://15.164.103.10/', 27017)
 db = client.dbsparta
 
 # HTML을 주는 부분
