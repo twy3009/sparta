@@ -34,9 +34,7 @@
 
         $(document).ready(function() {
             $('#cards-box').html('');
-            //listing();
-            $('#orders-box').html('');
-            // listing_table();
+            listing();
         });
 
         function listing() {
@@ -53,34 +51,6 @@
             })
         }
 
-        function listing_table() {
-            $.ajax({
-                type: "GET",
-                url: "/table",
-                data: {},
-                success: function(response) {
-                    console.log(response)
-                    let collection = response['collection'];
-                    for (let i = 0; i < 5; i++) {
-                        make_table(collection[i]['날짜'], collection[i]['종가'], collection[i]['전일비'], collection[i]['시가'], collection[i]['고가'], collection[i]['저가'], collection[i]['거래량'])
-                    }
-                }
-            })
-        }
-
-        function make_table(a, b, c, d, e, f, g) {
-            let temp_html = '<tr>\
-                                <td>' + a + '</td>\
-                                <td>' + b + '</td>\
-                                <td>' + c + '</td>\
-                                <td>' + d + '</td>\
-                                <td>' + e + '</td>\
-                                <td>' + f + '</td>\
-                                <td>' + g + '</td>\
-                            </tr>';
-            $('#orders-box').append(temp_html);
-        }
-
         function make_card(comment, desc, image, title, url) {
             let temp_html = '<div class="card">\
         <img class="card-img-top" src="' + image + '" alt="Card image cap">\
@@ -95,21 +65,21 @@
 
         function posting() {
             // 읽기
-            let url = $('#posting-url').val();
+            let stockname = $('#posting-stockname').val();
             let comment = $('#posting-comment').val();
 
             // 우리가 크롬 콘솔창에서 썼던 그 코드!
             $.ajax({
                 type: "POST", // POST 방식으로 요청하겠다.
-                url: "/memo", // /memo라는 url에 요청하겠다.
+                name: "/memo", // /memo라는 name에 요청하겠다.
                 data: {
-                    url_give: url,
+                    stockname_give: stockname,
                     comment_give: comment
                 }, // 데이터를 주는 방법
                 success: function(response) { // 성공하면
                     if (response['result'] == 'success') {
                         alert('포스팅 성공!');
-                        //window.location.reload();
+                        window.location.reload();
                     } else {
                         alert('서버 오류!')
                     }
@@ -123,17 +93,17 @@
         * {
             font-family: 'Stylish', sans-serif;
         }
-
+        
         .wrap {
             width: 900px;
             margin: auto;
         }
-
+        
         .comment {
             color: blue;
             font-weight: bold;
         }
-
+        
         .form-post {
             max-width: 500px;
             padding: 2rem;
@@ -143,7 +113,7 @@
             border: solid;
             display: block;
         }
-
+        
         #posting-box {
             display: none;
         }
@@ -154,8 +124,8 @@
 <body>
     <div class="wrap">
         <div class="jumbotron">
-            <h1 class="display-4">주식 이력서</h1>
-            <p class="lead">중요한 주식를 저장해두고, 나중에 볼 수 있는 공간입니다</p>
+            <h1 class="display-4">나홀로 링크 메모장!</h1>
+            <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다</p>
             <hr class="my-4">
             <p class="lead">
                 <a id="btn-posting-box" onclick="openclose()" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스 열기</a>
@@ -165,39 +135,15 @@
             <div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">주식이름</label>
-                    <input id="posting-url" class="form-control" placeholder="">
+                    <input id="posting-stockname" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">간단 코멘트</label>
                     <textarea id="posting-comment" class="form-control" rows="2"></textarea>
                 </div>
-                <button onclick="posting(),listing(),listing_table()" class="btn btn-primary">주식정보저장</button>
+                <button onclick="posting()" class="btn btn-primary">클릭</button>
             </div>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="meta_info" scope="col">날짜</th>
-                    <th class="meta_info" scope="col">종가</th>
-                    <th class="meta_info" scope="col">전일비</th>
-                    <th class="meta_info" scope="col">시가</th>
-                    <th class="meta_info" scope="col">고가</th>
-                    <th class="meta_info" scope="col">저가</th>
-                    <th class="meta_info" scope="col">거래량</th>
-                </tr>
-            </thead>
-            <tbody id="orders-box">
-                <tr>
-                    <td>날짜</td>
-                    <td>종가</td>
-                    <td>전일비</td>
-                    <td>시가</td>
-                    <td>고가</td>
-                    <td>저가</td>
-                    <td>거래량</td>
-                </tr>
-            </tbody>
-        </table>
         <div class="card-columns" id="cards-box">
             <div class="card">
                 <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
@@ -207,12 +153,48 @@
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
-
+            <div class="card">
+                <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">여기 기사 제목이 들어가죠</h5>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">여기 기사 제목이 들어가죠</h5>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">여기 기사 제목이 들어가죠</h5>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">여기 기사 제목이 들어가죠</h5>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">여기 기사 제목이 들어가죠</h5>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                </div>
             </div>
         </div>
-
     </div>
-
 </body>
 
 </html>
