@@ -14,14 +14,14 @@ code_df = code_df.rename(columns={'회사명': 'name', '종목코드': 'code'})
 
 def get_url(item_name, code_df):
     code =code_df.query("name=='{}'".format(item_name))['code'].to_string(index=False)
-    print(code)
+    # print(code)
     url = 'http://finance.naver.com/item/sise_day.nhn?code='+code.strip()
-    print("요청 URL = {}".format(url))
+    # print("요청 URL = {}".format(url))
     return url
 
 item_name='삼성전자'
 url = get_url(item_name, code_df)
-print(url)
+# print(url)
 df = pd.DataFrame()
 
 for page in range(1, 21):
